@@ -1,8 +1,8 @@
 <?php
   include '../koneksi.php';
   date_default_timezone_set("Asia/Makassar");
-  $tgl = date("d-m-Y H:i:s");
-  //echo "$tgl";
+  $tgl = date("Y-m-d H:i:s");
+
   $no_rek = $_POST['rek'];
   $jml = $_POST['jml'];
 
@@ -12,6 +12,7 @@
 
   $ins = mysqli_query($con, "insert into tb_transaksi values('','$sl[id_nasabah]', 1, '$jml', '$tgl' )");
   $ins2 = mysqli_query($con, "insert into tb_saldo values('',(select max(id_transaksi) from tb_transaksi),
-  (select sum(jumlah) from tb_transaksi where id_nasabah = (select max(id_nasabah) from tb_transaksi)))")
+  (select sum(jumlah) from tb_transaksi where id_nasabah = (select max(id_nasabah) from tb_transaksi)))");
 
+  header('location:after-setor.php');
 ?>
